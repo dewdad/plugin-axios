@@ -55,6 +55,10 @@ export default class Action {
       const paramValue = _.has(config.params, param.replace(':', '')) ? config.params[param.replace(':', '')] : ''
       endpoint = endpoint.replace(param, paramValue).replace('//', '/')
     })
+
+    const context = Context.getInstance();
+    let suffix = context.options.http.suffix;
+    if (suffix) endpoint += suffix;
     if (config.query) endpoint += `?${Object.keys(config.query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(config.query[k])}`).join('&')}`;
     return endpoint;
   }
