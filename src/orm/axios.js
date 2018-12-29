@@ -1,9 +1,15 @@
 import axios from 'axios';
+import Context from '../common/context'
 
 export default class Axios {
   constructor(http) {
     this.instance = axios.create(http);
     this.setAuthentication(http.access_token);
+    
+    const context = Context.getInstance();
+    if (context.options.onRequest) {
+      this.instance.interceptors.request.use(context.options.onRequest)
+    }
 
     this.instance.interceptors.response.use(
       response => http.onResponse(response),
