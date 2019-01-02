@@ -5,6 +5,11 @@ export default class Axios {
     this.instance = axios.create(http);
     this.setAuthentication(http.access_token);
 
+    this.instance.interceptors.request.use(
+      config => http.onRequest(config),
+      error => http.onError(error),
+    );
+
     this.instance.interceptors.response.use(
       response => http.onResponse(response),
       error => http.onError(error),
