@@ -1,4 +1,4 @@
-import { Database } from '@vuex-orm/core';
+import { Database } from '@vuex-orm/core'
 
 export const AxiosRequestConfig = {
   /**
@@ -59,7 +59,7 @@ export const AxiosRequestConfig = {
    * @param {number} status
    */
   validateStatus(status) {
-    return status >= 200 && status < 300; // default
+    return status >= 200 && status < 300 // default
   },
 
   /**
@@ -82,7 +82,7 @@ export const AxiosRequestConfig = {
    * @param {object} config
    */
   onRequest(config) {
-    return config;
+    return config
   },
 
   /**
@@ -90,7 +90,7 @@ export const AxiosRequestConfig = {
    * @param {object} response
    */
   onResponse(response) {
-    return response.data;
+    return response.data
   },
 
   /**
@@ -138,21 +138,21 @@ export const AxiosRequestConfig = {
    * @param {object} error
    */
   onError(error) {
-    const { response } = error;
+    const { response } = error
     const errorTypes = {
       401: this.onUnauthorised,
       404: this.onNotFound,
       422: this.onValidationError,
-      500: this.onServerError
+      500: this.onServerError,
     }
     if (response && response.status in errorTypes) {
-      errorTypes[response.status](error);
+      errorTypes[response.status](error)
     } else {
-      this.onGenericError(error);
+      this.onGenericError(error)
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   },
-};
+}
 
 export const VuexOrmPluginConfig = {
   /**
@@ -163,8 +163,8 @@ export const VuexOrmPluginConfig = {
   /**
    * Default Axios Config
    */
-  http: AxiosRequestConfig
-};
+  http: AxiosRequestConfig,
+}
 
 export const ModuleConfig = {
   /**
@@ -184,8 +184,8 @@ export const ModuleConfig = {
      * @param {object} state
      */
     onRequest(state) {
-      state.loading = true;
-      state.errors = [];
+      state.loading = true
+      state.errors = []
     },
 
     /**
@@ -194,8 +194,8 @@ export const ModuleConfig = {
      * @param {object} response
      */
     onError(state, response) {
-      state.loading = false;
-      state.errors = response.data;
+      state.loading = false
+      state.errors = response.data
     },
 
     /**
@@ -204,8 +204,8 @@ export const ModuleConfig = {
      * @param {object} response
      */
     onSuccess(state) {
-      state.loading = false;
-      state.errors = [];
+      state.loading = false
+      state.errors = []
     },
   },
 
@@ -216,7 +216,7 @@ export const ModuleConfig = {
     loading: false,
     errors: [],
   },
-};
+}
 
 export const FetchConfig = {
   name: 'fetch',
@@ -224,7 +224,7 @@ export const FetchConfig = {
     url: '',
     method: 'get',
   },
-};
+}
 
 export const GetConfig = {
   name: 'get',
@@ -232,7 +232,7 @@ export const GetConfig = {
     url: '/:id',
     method: 'get',
   },
-};
+}
 
 export const CreateConfig = {
   name: 'create',
@@ -241,7 +241,7 @@ export const CreateConfig = {
     url: '',
     method: 'post',
   },
-};
+}
 
 export const UpdateConfig = {
   name: 'update',
@@ -249,7 +249,7 @@ export const UpdateConfig = {
     url: '/:id',
     method: 'put',
   },
-};
+}
 
 export const DeleteConfig = {
   name: 'delete',
@@ -257,7 +257,7 @@ export const DeleteConfig = {
     url: '/:id',
     method: 'delete',
   },
-};
+}
 
 export const ModelConfig = {
   http: AxiosRequestConfig,
@@ -268,4 +268,4 @@ export const ModelConfig = {
     $update: UpdateConfig,
     $delete: DeleteConfig,
   },
-};
+}
